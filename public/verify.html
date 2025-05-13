@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verificación</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <h1>Verificar Teléfono</h1>
+  <form id="verifyForm">
+    <input type="text" id="phone" placeholder="Número telefónico" required />
+    <button type="submit">Verificar y Generar QR</button>
+  </form>
+  <div id="message"></div>
+  <canvas id="qrcode"></canvas>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode"></script>
+  <script src="js/verify.js"></script>
+</body>
+</html>
