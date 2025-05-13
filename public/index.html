@@ -1,18 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PTV Telecom</title>
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ptv-Telecom</title>
+    <link rel="stylesheet" href="style.css"> <!-- Incluye tu archivo CSS -->
 </head>
 <body>
-  <h1>PTV Telecom</h1>
-  <nav>
-    <button onclick="location.href='upload.html'">Cargar Usuarios</button>
-    <button onclick="location.href='verify.html'">Verificar Teléfono</button>
-    <button onclick="location.href='scan.html'">Escanear QR</button>
-    <button onclick="location.href='draw.html'">Sorteo</button>
-  </nav>
+    <!-- Menú de navegación -->
+    <nav>
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/usuarios">Usuarios</a></li>
+            <li><a href="/subir-archivo">Subir archivo</a></li>
+            <li><a href="/sorteo">Sorteo</a></li>
+        </ul>
+    </nav>
+
+    <h1>Lista de Usuarios</h1>
+
+    <!-- Tabla de usuarios -->
+    <table id="usersTable" border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Teléfono</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los usuarios se agregarán aquí dinámicamente -->
+        </tbody>
+    </table>
+
+    <script>
+        // Función para obtener la lista de usuarios
+        async function fetchUsers() {
+            try {
+                const response = await fetch('/api/users/users');  // Endpoint para obtener los usuarios
+                const users = await response.json();
+
+                // Referencia al cuerpo de la tabla
+                const tableBody = document.querySelector('#usersTable tbody');
+                tableBody.innerHTML = '';  // Limpiar la tabla antes de agregar nuevos usuarios
+
+                // Añadir filas a la tabla con los usuarios
+                users.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${user.firstName}</td>
+                        <td>${user.lastName}</td>
+                        <td>${user.phoneNumber}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error al cargar los usuarios:', error);
+            }
+        }
+
+        // Llamar a la función al cargar la página
+        window.onload = fetchUsers;
+    </script>
 </body>
 </html>
