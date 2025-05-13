@@ -27,4 +27,15 @@ router.post('/verify', async (req, res) => {
   }
 });
 
+// Ruta para obtener la lista de todos los usuarios
+router.get('/users', async (req, res) => {
+  try {
+    const users = await User.find();  // Aquí recuperamos todos los usuarios de la base de datos
+    res.json(users);  // Devolvemos la lista de usuarios en formato JSON
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
 module.exports = router;
